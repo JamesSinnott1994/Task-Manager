@@ -22,7 +22,9 @@ mongo = PyMongo(app)
 @app.route("/get_tasks")
 def get_tasks():
     # Finds all documents from the "tasks" collection on database
-    tasks = mongo.db.tasks.find()
+    # We convert cursor object below into a list
+    # This helps with the issue of Jinja unpacking lists
+    tasks = list(mongo.db.tasks.find())
 
     # "tasks" passed into the tasks.html page
     # 2nd tasks below is the tasks above
